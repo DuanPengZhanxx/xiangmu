@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #time{
+            font-size: 40px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="time">距离放假时间还有000天00小时00分钟00秒</div>
+<script>
+    window.onload = function () {
+        //1.获取需要的标签
+        var time = document.getElementById("time");
+
+        //2自定义放假的时间
+        var nextDate = new Date("2019/01/25 09:00:00");
+
+        //3.开启定时器
+        var timer = setInterval(function () {
+
+            //4.获取现在时间
+            var currentDate = new Date();
+
+            //5.获取时间戳 毫秒
+            var currentTime = currentDate.getTime();
+            var nextTime = nextDate.getTime();
+
+            //6.剩下的时间戳
+            var allTime = nextTime - currentDate;
+            //console.log(allTime);
+
+            //7.把毫秒转化成秒
+            var allSeconds = allTime / 1000;
+            //console.log(parseInt(allSeconds));
+
+            //8.把秒转换成天  时  分  秒
+            var d = size(parseInt(allSeconds / 3600 /24));
+            var h = size(parseInt(allSeconds /3600 % 24));
+            var m = size(parseInt(allSeconds / 60 % 60));
+            var s = size(parseInt(allSeconds % 60));
+            //console.log(d,h,m,s);
+            //9.把值注入到time上
+            time.innerText = "距离放假时间还有"+d+"天"+h+"小时"+m+"分钟"+s+"秒";
+
+            function size(num) {
+                return num >= 10? num : '0'+num;
+            }
+            //size();
+            //10.判断关闭定时器
+            /*if (currentDate == nextDate){
+                clearInterval(timer);
+            }*/
+        },1000);
+
+    }
+</script>
+</body>
+</html>
